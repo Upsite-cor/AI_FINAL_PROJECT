@@ -7,10 +7,10 @@ EPOCHS = 20
 
 def read_data():
     # Your data goes here
-    filedata = np.genfromtxt('/Users/bryan/Documents/School/Fall 2023/AI/Project/BRDFDatabase/code/yellow-plastic-data2.txt', delimiter='')
+    filedata = np.genfromtxt('./yellow-plastic-data2.txt', delimiter='')
 
     np.random.shuffle(filedata)
-    data = filedata[0:100000]
+    data = filedata[0:20]
     print('\n data test first 20 elements: \n', data)
     return data
 
