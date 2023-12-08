@@ -5,14 +5,18 @@ np.random.seed(7)  # To make repeatable
 LEARNING_RATE = 0.01
 EPOCHS = 20
 
+    # changed this because it was shuffling the rows and columns and not the rows only. 
+    # changed Read_data function
 def read_data():
     # Your data goes here
     filedata = np.genfromtxt('./yellow-plastic-data2.txt', delimiter='')
-
     np.random.shuffle(filedata)
-    data = filedata[0:20]
+    data = filedata[0:100]
     print('\n data test first 20 elements: \n', data)
     return data
+##############################################################################
+
+
 
 def layer_w(neuron_count, input_count):
     weights = np.zeros((neuron_count, input_count + 1))
@@ -51,8 +55,11 @@ def plot_learning(chart_y_test):
     plt.legend()
     plt.show()
 
+# changed it to sigmoid because prof wanted us to use sigmoid
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
+###########################################
+
 
 def forward_pass(x):
     global hidden_layer_y
@@ -60,8 +67,8 @@ def forward_pass(x):
     # Activation function for hidden layer
     for i, w in enumerate(hidden_layer_w):
         z = np.dot(w, x)
-        hidden_layer_y[i] = sigmoid(z)
-        #hidden_layer_y[i] = np.tanh(z)
+        hidden_layer_y[i] = sigmoid(z) # changed it to sigmoid because prof wanted us to use sigmoid
+        
 
     hidden_output_array = np.concatenate((np.array([1.0]), hidden_layer_y))
     # Activation function for output layer
@@ -122,16 +129,18 @@ def plot_learning(chart_y_test):
     plt.legend()
     plt.show()
 
+# Displays the final weights at the end
 def final_weights():
    with open('./finalweights.txt', 'w') as file:
     file.write("FINAL WEIGHTS FOR W NEURON:\n")
     for i, w in enumerate(hidden_layer_w):
         file.write(str(w) + '\n')
 
-    file.write("FINAL WEIGHTS FOR F NEURON:\n")
+    file.write("FINAL WEIGHTS FOR Y NEURON:\n")
     file.write(str(output_layer_w[0][1:]))
     # All write operations should be within the 'with' block
-
+    
+###################################################################
 
 best_loss = float('inf')
 PATIENCE=5
